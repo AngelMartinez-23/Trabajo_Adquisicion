@@ -1,0 +1,225 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>INFORME DE ADQUISICION Y RECOLECCION DE EVIDENCIAS</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="Adquisicion_Forense"
+                  title="INFORME DE ADQUISICION Y RECOLECCION DE EVIDENCIAS"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Recolección de Evidencias." duration="0">
+        <p>De acuerdo con la normativa ISO/IEC 27037, se debe garantizar que la recolección de evidencias se realice de manera que se preserve la integridad de los datos y se minimicen las alteraciones. A continuación, se describen los pasos seguidos en la recolección de cada tipo de evidencia durante el incidente.</p>
+<h2 is-upgraded>Identificación y Aislamiento de la Máquina Comprometida.</h2>
+<p>La máquina comprometida fue identificada mediante alertas del sistema de monitoreo. Una vez confirmada la posible intrusión, se procedió a desconectar físicamente la máquina de la red para evitar cualquier alteración de la evidencia o propagación del ataque.</p>
+<h2 is-upgraded>Creación de la Imagen del Disco.</h2>
+<p>Utilizando FTK Imager, se realizó una copia bit a bit del disco duro de la máquina comprometida. Este paso asegura que todos los datos presentes en el disco, incluidos los archivos eliminados y los metadatos, se preserven sin alteración. Se generaron y documentaron los hashes MD5 y SHA-256 para verificar la integridad de la imagen y garantizar que los datos no fueran modificados durante el proceso de adquisición.</p>
+<p>Durante el proceso de creación de la imagen del disco, se tomaron capturas de pantalla que documentan cada paso del procedimiento y permiten revisar visualmente el proceso de adquisición:</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\a783a627c568de2c.PNG"></p>
+<p>En la figura siguiente, se ilustra el primer paso del proceso. Una vez que hayamos seleccionado la opción &#34;Crear una nueva imagen del disco&#34; en el panel de la izquierda, deberemos desplegar el apartado denominado &#34;<strong>New</strong>&#34;.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\e58ae773ec15b2f9.PNG"></p>
+<p>A continuación, se visualiza el lugar donde se desea almacenar la imagen del disco correspondiente.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\615faf40a87902b.PNG"></p>
+<p>Una vez finalizada la creación de la imagen, se procederá a realizar la verificación correspondiente, previa a la generación del informe de los valores hash. Para concluir, se presenta la visualización del informe que contiene los valores hash determinados.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\49bacf2a6e89148a.PNG"></p>
+<h2 is-upgraded>Captura de Memoria RAM</h2>
+<p>Dado que la memoria RAM es volátil, se utilizó Ram Capturer para realizar una captura de la memoria activa de la máquina. La RAM contiene información crítica, como procesos activos, contraseñas y conexiones de red. Esta evidencia fue esencial para capturar información que de otro modo se perdería al apagar el sistema.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\db43818dd6d7de60.PNG"></p>
+<h2 is-upgraded>Extracción de ARP (Protocolo de Resolución de Direcciones)</h2>
+<p>Se extrajeron las entradas ARP de la máquina comprometida para identificar la relación entre direcciones IP y MAC, lo que permite conocer los dispositivos en la red local con los que la máquina comprometida ha interactuado. Esta información es relevante para entender el alcance del ataque y posibles vectores de propagación.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\78697cb3f84c3b06.PNG"></p>
+<h2 is-upgraded>Recolección de Archivos Temporales</h2>
+<p>Utilizando FTK Imager y otras herramientas de análisis forense, se recolectaron archivos temporales, que pueden contener fragmentos de datos críticos, como caché de navegador, registros de actividades o datos de aplicaciones recientes. Estos archivos temporales pueden ofrecer información valiosa sobre las acciones del atacante.</p>
+<p>En primer lugar, seleccionamos dentro de la aplicación una nueva evidencia, y seleccionaremos la opción de elementos de una carpeta, una vez seleccionada podremos empezar a realizar nuestra adquisición.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\dd8417d7f88172c8.PNG"></p>
+<p>A continuación exportamos la imagen logical de la carpeta para tener información sobre los hashes:</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\9e132eeab5b2a585.PNG"></p>
+<p>Resultado:</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\4e868c904367ccf4.PNG"></p>
+<h2 is-upgraded>Triaje de la Máquina.</h2>
+<p>Se realizó un triaje inicial para determinar el impacto del incidente. Durante esta fase, se analizaron los archivos y procesos activos, identificando posibles amenazas como malware o herramientas utilizadas por el atacante. El triaje permitió priorizar la recolección de evidencia más crítica para el análisis posterior.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\f73725b82f211a04.PNG"></p>
+<p>En la siguiente imagen vemos cómo guardamos un .html con toda la información del triaje más adelante habrá un enlace donde podremos ver todos los tipos de adquisiciones que se han hecho con las diversas herramientas.</p>
+<h2 is-upgraded>Recolección de Logs del Sistema</h2>
+<p>Se extrajeron los logs del sistema para obtener información sobre eventos importantes como accesos no autorizados, cambios en configuraciones y otras actividades sospechosas. Estos logs pueden proporcionar detalles sobre el tiempo y las acciones realizadas durante el ataque.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\9f7f8cd5fc9c48b.PNG"></p>
+<h2 is-upgraded>Captura de Procesos Activos</h2>
+<p>Se recopiló una lista de todos los procesos activos en la máquina comprometida. Esta lista incluye tanto los procesos legítimos como cualquier proceso sospechoso que pudiera estar relacionado con el ataque. Identificar procesos maliciosos o desconocidos es crucial para entender el comportamiento del atacante y sus objetivos.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\29cdac33ba553462.PNG"></p>
+<h2 is-upgraded>Topología de red y Tabla de Enrutamiento</h2>
+<p>Se extrajeron detalles sobre la topología de la red y la tabla de enrutamiento de la máquina comprometida. Estos datos ayudan a entender cómo la máquina se conecta con otros dispositivos en la red y cómo se enrutan los paquetes. La tabla de enrutamiento muestra las rutas de comunicación de la máquina y permite identificar posibles rutas utilizadas por el atacante.</p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\c9c52a1b1dad9089.PNG"></p>
+<p class="image-container"><img alt="Texto alternativo" src="img\\6b6de5303b94e35b.PNG"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Descripción de la Evidencia" duration="0">
+        <p>A continuación se describe de manera detallada cada tipo de evidencia recolectada, su importancia y las características que hacen que cada una sea relevante en el análisis forense.</p>
+<h2 is-upgraded>Imagen del Disco</h2>
+<p>La imagen del disco contiene una copia exacta del disco duro de la máquina comprometida. Esta evidencia incluye todos los datos almacenados en el disco, tales como archivos de sistema, documentos, correos electrónicos, archivos eliminados y metadatos. Es esencial para un análisis forense exhaustivo, ya que permite investigar en profundidad sin riesgo de modificar el sistema original.</p>
+<h2 is-upgraded>Captura de memoria RAM</h2>
+<p>La memoria RAM contiene información crítica sobre los procesos en ejecución, contraseñas en memoria, sesiones activas y otros datos volátiles. Esta evidencia es clave para identificar actividades sospechosas en tiempo real y obtener información sobre las interacciones de la máquina comprometida con otros sistemas en la red.</p>
+<h2 is-upgraded>Entradas ARP</h2>
+<p>Las entradas ARP permiten asociar direcciones IP con direcciones MAC en la red local. Esta información es crucial para comprender cómo la máquina comprometida se comunica con otros dispositivos dentro de la red y puede ayudar a identificar dispositivos comprometidos o puntos de acceso no autorizados.</p>
+<h2 is-upgraded>Archivos Temporales</h2>
+<p>Los archivos temporales contienen fragmentos de datos de programas y aplicaciones que pueden haberse usado en el ataque. Estos archivos pueden incluir rastros de la actividad del atacante, como conexiones a sitios web maliciosos, herramientas utilizadas o datos transferidos durante el ataque.</p>
+<h2 is-upgraded>Triaje</h2>
+<p>El triaje realizado permite priorizar los datos más relevantes para el análisis forense. En esta fase, se identificaron procesos y archivos sospechosos, lo que ayudó a dirigir los esfuerzos de recolección hacia las áreas más críticas del sistema.</p>
+<h2 is-upgraded>Logs del Sistema</h2>
+<p>Los Logs del sistema contienen registros detallados de todas las acciones realizadas en la máquina, incluyendo accesos, cambios de configuración y errores del sistema. Son fundamentales para reconstruir la secuencia de eventos durante el ataque y comprender cómo se desarrolló el incidente.</p>
+<h2 is-upgraded>Procesos Activos</h2>
+<p>La lista de procesos activos muestra todos los programas y servicios en ejecución en la máquina. El análisis de estos procesos puede ayudar a identificar malware o herramientas utilizadas por el atacante para mantener el control sobre el sistema comprometido.</p>
+<h2 is-upgraded>Topología de Red y Tabla de Enrutamiento</h2>
+<p>La topología de la red y la tabla de enrutamiento proporcionan información sobre cómo la máquina comprometida interactúa con otros dispositivos en la red. Esto es esencial para comprender el alcance del ataque, los dispositivos involucrados y  posibles rutas de propagación.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Cadena de Custodia" duration="0">
+        <p>La cadena de custodia garantiza que la evidencia recolectada se maneje de manera segura y no se altere durante el proceso de adquisición, almacenamiento y análisis. A continuación, se presenta la cadena de custodia organizada en una tabla:</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>Nº</p>
+</td><td colspan="1" rowspan="1"><p>Propósito de la Transferencia</p>
+</td><td colspan="1" rowspan="1"><p>Método de la Transferencia</p>
+</td><td colspan="1" rowspan="1"><p>Fecha de la Transferencia</p>
+</td><td colspan="1" rowspan="1"><p>Nombre de la Persona que Entrega</p>
+</td><td colspan="1" rowspan="1"><p>Nombre de la Persona que Recibe</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>1</p>
+</td><td colspan="1" rowspan="1"><p>Adquisición de la Imagen del Disco</p>
+</td><td colspan="1" rowspan="1"><p>USB externo cifrado</p>
+</td><td colspan="1" rowspan="1"><p>10/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>2</p>
+</td><td colspan="1" rowspan="1"><p>Captura de Memoria RAM</p>
+</td><td colspan="1" rowspan="1"><p>USB externo cifrado</p>
+</td><td colspan="1" rowspan="1"><p>10/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>3</p>
+</td><td colspan="1" rowspan="1"><p>Recolección de Entradas ARP</p>
+</td><td colspan="1" rowspan="1"><p>USB externo cifrado</p>
+</td><td colspan="1" rowspan="1"><p>11/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>4</p>
+</td><td colspan="1" rowspan="1"><p>Recolección de Archivos Temporales</p>
+</td><td colspan="1" rowspan="1"><p>Transferencia de red segura</p>
+</td><td colspan="1" rowspan="1"><p>11/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>5</p>
+</td><td colspan="1" rowspan="1"><p>Triaje de la máquina</p>
+</td><td colspan="1" rowspan="1"><p>Transferencia de red segura</p>
+</td><td colspan="1" rowspan="1"><p>11/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>6</p>
+</td><td colspan="1" rowspan="1"><p>Extracción de Logs del Sistema</p>
+</td><td colspan="1" rowspan="1"><p>Transferencia de red segura</p>
+</td><td colspan="1" rowspan="1"><p>12/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>7</p>
+</td><td colspan="1" rowspan="1"><p>Captura de Procesos Activos</p>
+</td><td colspan="1" rowspan="1"><p>Transferencia de red segura</p>
+</td><td colspan="1" rowspan="1"><p>12/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>8</p>
+</td><td colspan="1" rowspan="1"><p>Captura de la Topología de Red y Tabla de Enrutamiento</p>
+</td><td colspan="1" rowspan="1"><p>Transferencia de red segura</p>
+</td><td colspan="1" rowspan="1"><p>13/11/2024</p>
+</td><td colspan="1" rowspan="1"><p>Ángel Martínez</p>
+</td><td colspan="1" rowspan="1"><p>Manuel Rivas</p>
+</td></tr>
+</table>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Almacenamiento de la Evidencia" duration="0">
+        <p>La evidencia fue almacenada siguiendo las directrices de la ISO/IEC 27037, asegurando su integridad y protección:</p>
+<p><strong>Copia Principal</strong>.</p>
+<p>La evidencia fue almacenada en un servidor seguro y cifrado, con acceso restringido sólo al personal autorizado.</p>
+<p><strong>Copia de Respaldo</strong>.Se realizó una copia adicional de la evidencia en un dispositivo de almacenamiento externo cifrado, que fue almacenado en una ubicación física segura.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Metodología Aplicada Según ISO/IEC 27037" duration="0">
+        <p>La metodología seguida se basó en los principios establecidos por la ISO/IEC 27037, que incluyen:</p>
+<ul>
+<li><strong>Identificación y Aislamiento</strong>: La máquina comprometida fue identificada y desconectada de la red para evitar alteraciones.</li>
+<li><strong>Recolección de Evidencias</strong>: Se utilizaron herramientas forenses para recolectar imágenes del disco, memoria RAM, archivos temporales, logs, entre otros.</li>
+<li><strong>Verificación de Integridad</strong>: Se generaron los hashes de cada pieza de evidencia para garantizar su integridad.</li>
+<li><strong>Almacenamiento Seguro</strong>: La evidencia fue almacenada en un entorno seguro, con controles de acceso rigurosos.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Enlace a las Evidencias en Repositorio" duration="0">
+        <p>Una vez recolectadas y almacenadas, las evidencias fueron cargadas en un repositorio seguro para su análisis posterior. A continuación, se proporciona el enlace a la ubicación donde las evidencias pueden ser consultadas, con acceso restringido solo a personal autorizado.</p>
+<p><a href="https://drive.google.com/drive/folders/1jAmxf-Qgl9pt51fVO8ZDv7GpcbuI6kqD?usp=drive_link" target="_blank">Enlace al Repositorio</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Verificación de la Integridad de las Evidencias" duration="0">
+        <p>Se llevó a cabo una verificación exhaustiva de la integridad de las evidencias mediante la comparación de los hashes generados antes y después de cada acción de recolección. No se encontraron alteraciones en ninguna de las evidencias.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Conclusiones y Recomendaciones" duration="0">
+        <p>El proceso de adquisición y recolección de evidencias se llevó a cabo conforme a la normativa ISO/IEC 27037, garantizando la integridad, seguridad y trazabilidad de las evidencias recolectadas. Se recomienda implementar un monitoreo continuo de la red, mejorar los procedimientos de respuesta a incidentes y reforzar la formación del personal involucrado en el análisis forense.</p>
+<h2 is-upgraded>Recomendaciones:</h2>
+<ol type="1">
+<li><strong>Revisión Continua</strong>: Implementar monitoreo continuo para detectar actividades sospechosas en tiempo real.</li>
+<li><strong>Mejoras en la Respuesta a Incidentes</strong>: Optimizar el proceso de triaje para garantizar una respuesta más eficaz.</li>
+<li><strong>Reforzamiento en la Seguridad de Almacenamiento</strong>: Evaluar y mejorar las políticas de protección del repositorio de evidencia.</li>
+<li><strong>Entrenamiento Continuo</strong>: Realizar sesiones de formación periódicas para el personal.</li>
+</ol>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

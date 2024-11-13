@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2024-11-13T21:07:07+01:00",
+  "id": "Adquisicion_Forense",
+  "duration": 0,
+  "title": "INFORME DE ADQUISICION Y RECOLECCION DE EVIDENCIAS",
+  "summary": "Resumen del CodeLab",
+  "source": "CodeLab.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "codelab",
+    "markdown"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "Adquisicion_Forense"
+}
